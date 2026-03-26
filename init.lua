@@ -23,12 +23,24 @@ local meta = {
     end
 }
 
+local function iup_close (self, ...)
+    emit(self.atm, 'close', ...)
+end
+
 local function iup_action (self, ...)
     emit(self.atm, 'action', ...)
 end
 
 local function iup_value (self, ...)
     emit(self.atm, 'value', ...)
+end
+
+local iup_dialog = iup.dialog
+function iup.dialog (...)
+    local h = iup_dialog(...)
+    h.atm = setmetatable({}, meta)
+    h.close_cb = iup_close
+    return h
 end
 
 local iup_button = iup.button
@@ -78,10 +90,11 @@ M.env = {
     step = function ()
         local cur = M.env.mode and M.env.mode.current
         if cur == 'secondary' then
-            return (iup.LoopStep() == iup.CLOSE)
+            iup.LoopStep()
         else
-            return (iup.LoopStepWait() == iup.CLOSE)
+            iup.LoopStepWait()
         end
+        return false
     end,
     close = iup.Close,
 }
