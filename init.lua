@@ -86,7 +86,7 @@ timer.run = "YES"
 
 M.env = {
     mode = { primary=true, secondary=true },
-    open = iup.Open,
+    quit = iup.Close,
     step = function ()
         local cur = M.env.mode and M.env.mode.current
         if cur == 'secondary' then
@@ -96,7 +96,6 @@ M.env = {
         end
         return false
     end,
-    close = iup.Close,
 }
 
 atmos.env(M.env)
