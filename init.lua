@@ -91,6 +91,7 @@ M.env = {
         local cur = M.env.mode and M.env.mode.current
         if cur == 'secondary' then
             iup.LoopStep()
+            iup.Flush()
         else
             iup.LoopStepWait()
         end

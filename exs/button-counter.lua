@@ -1,23 +1,23 @@
 require "atmos.env.iup"
 require "iuplua"
 
-xtxt = iup.text { value=0, readonly="YES", size="60" }
-xbut = iup.button { title="Count", size="60" }
-xdlg = iup.dialog {
+local txt = iup.text { value=0, readonly="YES", size="60" }
+local but = iup.button { title="Count", size="60" }
+local dlg = iup.dialog {
     title  = "Button - Counter",
     margin = "10x10", 
     iup.hbox {
-        xtxt, xbut,
+        txt, but,
         ngap = "10",
     },
 }
 
-xdlg:showxy(iup.CENTER, iup.CENTER)
+dlg:showxy(iup.CENTER, iup.CENTER)
 
 loop(function ()
-    watching(xdlg,'close', function ()
-        every(xbut,'action', function ()
-            xtxt.value = xtxt.value + 1
+    watching(dlg,'close', function ()
+        every(but,'action', function ()
+            txt.value = txt.value + 1
         end)
     end)
 end)

@@ -22,7 +22,9 @@ loop(function ()
             print'1s'
         end)
     end)
-    every(btn,'action', function ()
-        txt.value = txt.value + 1
+    watching(dlg,'close', function ()
+        every(btn,'action', function ()
+            txt.value = txt.value + 1
+        end)
     end)
 end)
