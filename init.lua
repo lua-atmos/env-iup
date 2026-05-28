@@ -7,9 +7,14 @@ local iup = require("iuplua")
 
 local meta = {
     __atmos = function (awt, ...)
-        for i,x in ipairs(awt) do
-            local y = select(i, ...)
-            if i == 1 then
+        -- awt = { '==', <handle>, <event>... } : index 1 is the run.lua marker
+        if awt[1] ~= '==' then
+            return nil  -- standard emit/await check
+        end
+        for i = 2, #awt do
+            local x = awt[i]
+            local y = select(i-1, ...)
+            if i == 2 then
                 local mt = getmetatable(x)
                 if mt and mt.__index then
                     x = x.atm
