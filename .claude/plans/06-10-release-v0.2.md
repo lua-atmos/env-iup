@@ -7,8 +7,8 @@ Done: `init.lua` (`__atmos` + `meta` deleted; events
 `emit(100*1000)`) + all 3 exs (`_s_`/`_ms_` + `{tag, h=<handle>}`
 patterns). Adopted Option A: key on the iup HANDLE directly
 (`h=self` / `h=but`); `.atm` proxy REMOVED. Phase-1 + Phase-2
-PASSED. `v0.2` committed + pushed; rock uploaded. ONLY LEFT:
-ff `main` to `v0.2` + push (main still 2 behind).
+PASSED. `v0.2` committed + pushed; rock uploaded; `main` ff'd
+to `v0.2` and synced. RELEASE COMPLETE.
 
 `env-iup` is at `v0.1` (atmos >= 0.6, uses the removed
 `__atmos` metamethod). atmos `v0.7` is released; env-sdl
@@ -106,9 +106,8 @@ Two test phases (mirror env-socket):
     - [x] `exs/button-counter.lua`
     - [x] `exs/iup-net.lua`
 8. [x] Commit + push `v0.2` (done on branch `v0.2`)
-9. [~] Version branch `v0.2` created + pushed; `main` NOT yet
-       ff'd (2 behind) -> `git checkout main &&
-       git merge --ff-only v0.2 && git push && git checkout v0.2`
+9. [x] Version branch `v0.2` created + pushed; `main` ff'd to
+       `v0.2` and synced to origin
 10. [x] `luarocks upload atmos-env-iup-0.2-1.rockspec`
 
 ## Reference
