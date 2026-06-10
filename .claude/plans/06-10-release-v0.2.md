@@ -6,9 +6,10 @@ Done: `init.lua` (`__atmos` + `meta` deleted; events
 `{tag='close'|'action'|'value', h=self, v=...}`; clock
 `emit(100*1000)`) + all 3 exs (`_s_`/`_ms_` + `{tag, h=<handle>}`
 patterns). Adopted Option A: key on the iup HANDLE directly
-(`h=self` / `h=but`); `.atm` proxy REMOVED. Relies on iuplua
-caching one wrapper per widget -> VERIFY in Phase-1 (button
-click must increment). Pending: README, rockspec, tests.
+(`h=self` / `h=but`); `.atm` proxy REMOVED. Phase-1 PASSED
+(handle keying confirmed). README + `0.2-1` rockspec done.
+Pending: `luarocks make`, Phase-2, commit + `v0.2` + ff main,
+upload.
 
 `env-iup` is at `v0.1` (atmos >= 0.6, uses the removed
 `__atmos` metamethod). atmos `v0.7` is released; env-sdl
@@ -91,12 +92,13 @@ Two test phases (mirror env-socket):
        table events `{tag,h,v}`, bare-us clock)
 2. [x] Migrate exs (`hello`, `button-counter`, `iup-net`):
        `_s_`/`_ms_` + `{tag=..., h=.atm}` patterns
-3. [ ] Update `README.md` (version block, stable `v0.2`,
-       `Dependencies: iuplua, atmos v0.7`, Events section)
-4. [ ] Phase 1 tests (local) -- also resolves Option A vs B
-    - [ ] `exs/hello.lua`
-    - [ ] `exs/button-counter.lua`
-    - [ ] `exs/iup-net.lua` (needs env-socket installed)
+3. [x] Update `README.md` (version block + stable `v0.2`,
+       `Dependencies: iuplua, atmos v0.7`, Events re-keyed)
+4. [x] Phase 1 tests (local) -- all pass; Option A CONFIRMED
+       (handle keying matches, `.atm` not needed)
+    - [x] `exs/hello.lua`
+    - [x] `exs/button-counter.lua`
+    - [x] `exs/iup-net.lua` (needs env-socket installed)
 5. [x] Created `atmos-env-iup-0.2-1.rockspec` (branch `v0.2`,
        `atmos ~> 0.7`); `-dev-1` already present
 6. [ ] Make rockspec (`luarocks make`)
