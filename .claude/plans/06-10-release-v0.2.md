@@ -97,8 +97,8 @@ Two test phases (mirror env-socket):
     - [ ] `exs/hello.lua`
     - [ ] `exs/button-counter.lua`
     - [ ] `exs/iup-net.lua` (needs env-socket installed)
-5. [ ] Create `atmos-env-iup-0.2-1.rockspec` (branch `v0.2`,
-       `atmos ~> 0.7`); `-dev-1` already exists (verify)
+5. [x] Created `atmos-env-iup-0.2-1.rockspec` (branch `v0.2`,
+       `atmos ~> 0.7`); `-dev-1` already present
 6. [ ] Make rockspec (`luarocks make`)
 7. [ ] Phase 2 tests (global)
     - [ ] `exs/hello.lua`
