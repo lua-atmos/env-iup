@@ -5,45 +5,21 @@ local iup = require("iuplua")
 
 -------------------------------------------------------------------------------
 
-local meta = {
-    __atmos = function (awt, ...)
-        -- awt = { '==', <handle>, <event>... } : index 1 is the run.lua marker
-        if awt[1] ~= '==' then
-            return nil  -- standard emit/await check
-        end
-        for i = 2, #awt do
-            local x = awt[i]
-            local y = select(i-1, ...)
-            if i == 2 then
-                local mt = getmetatable(x)
-                if mt and mt.__index then
-                    x = x.atm
-                end
-            end
-            if x ~= y then
-                return false
-            end
-        end
-        return true
-    end
-}
-
 local function iup_close (self, ...)
-    emit(self.atm, 'close', ...)
+    emit{tag='close', h=self}
 end
 
 local function iup_action (self, ...)
-    emit(self.atm, 'action', ...)
+    emit{tag='action', h=self}
 end
 
 local function iup_value (self, ...)
-    emit(self.atm, 'value', ...)
+    emit{tag='value', h=self, v=...}
 end
 
 local iup_dialog = iup.dialog
 function iup.dialog (...)
     local h = iup_dialog(...)
-    h.atm = setmetatable({}, meta)
     h.close_cb = iup_close
     return h
 end
@@ -51,7 +27,6 @@ end
 local iup_button = iup.button
 function iup.button (...)
     local h = iup_button(...)
-    h.atm = setmetatable({}, meta)
     h.action = iup_action
     return h
 end
@@ -59,7 +34,6 @@ end
 local iup_text = iup.text
 function iup.text (...)
     local h = iup_text(...)
-    h.atm = setmetatable({}, meta)
     h.valuechanged_cb = iup_value
     return h
 end
@@ -67,7 +41,6 @@ end
 local iup_list = iup.list
 function iup.list (...)
     local h = iup_list(...)
-    h.atm = setmetatable({}, meta)
     h.valuechanged_cb = iup_value
     return h
 end
@@ -83,7 +56,7 @@ function timer:action_cb()
     local cur = M.env.mode and M.env.mode.current
     if cur ~= 'secondary' then
         M.now = M.now + 100
-        emit('clock', 100, M.now)
+        emit(100 * 1000)
     end
     return iup.DEFAULT
 end

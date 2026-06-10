@@ -15,8 +15,8 @@ local dlg = iup.dialog {
 dlg:showxy(iup.CENTER, iup.CENTER)
 
 loop(function ()
-    watching(dlg,'close', function ()
-        every(but,'action', function ()
+    watching({tag='close', h=dlg}, function ()
+        every({tag='action', h=but}, function ()
             txt.value = txt.value + 1
         end)
     end)

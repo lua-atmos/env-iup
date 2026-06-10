@@ -18,12 +18,12 @@ dlg:showxy(iup.CENTER, iup.CENTER)
 
 loop(function ()
     spawn(function ()
-        every(clock{s=1}, function ()
+        every(1*_s_, function ()
             print'1s'
         end)
     end)
-    watching(dlg,'close', function ()
-        every(btn,'action', function ()
+    watching({tag='close', h=dlg}, function ()
+        every({tag='action', h=btn}, function ()
             txt.value = txt.value + 1
         end)
     end)
