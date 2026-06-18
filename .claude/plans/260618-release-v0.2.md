@@ -41,6 +41,18 @@ luarocks.org. Mirror atmos `0.7-2` / `dev-3`.
 6. [ ] Commit, push `v0.2`, ff `main` (also clears the old
        step-9 loose end), sync
 7. [ ] `luarocks upload atmos-env-iup-0.2-2.rockspec`
+8. [ ] Re-migrate + test downstream app (see below)
+
+## Downstream app (no own plan -- handle here)
+
+- [ ] iup-7guis (branch `main`, git-only): still on the PRE-0.7
+      multi-arg `every(handle,'event',f)` API -- TIER C, needs the
+      full event re-key, not just a rename:
+        - `every(h,'action',f)` -> `loop_on({tag='action', h=h}, f)`
+        - `every(h,'value',function(v)...)` ->
+          `loop_on({tag='value', h=h}, function(e) ... e.v ...)`
+      Sites: `01-counter.lua:24`, `02-temperature.lua:34,38`.
+      Test against env-iup v0.2 + atmos 0.7-2.
 
 --------------------------------------------------------------
 
