@@ -33,8 +33,8 @@ luarocks.org. Mirror atmos `0.7-2` / `dev-3`.
 
 ## Steps (this re-cut)
 
-1. [ ] Migrate the 5 sites above (every -> loop_on; spawn -> do_spawn)
-2. [ ] Grep clean: no `every(` / `task()` / bare `spawn(function`
+1. [x] Migrate the 5 sites above (every -> loop_on; spawn -> do_spawn)
+2. [x] Grep clean: no `every(` / `task()` / bare `spawn(function`
 3. [ ] Test local (LUA_PATH): hello, button-counter, iup-net
 4. [ ] `0.2-2.rockspec` (copy 0.2-1, branch v0.2) + `dev-2`
 5. [ ] `luarocks make` + test global
