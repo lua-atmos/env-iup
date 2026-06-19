@@ -1,11 +1,13 @@
 # Plan: Re-release env-iup v0.2 (atmos 0.7-2)
 
-## RESUME HERE (state @ 2026-06-18) -- NEXT = §3 test local
+## RESUME HERE (state @ 2026-06-19) -- NEXT = §6 ff `main` only
 
-DONE this session: §1 migrate (5 sites) + §2 grep clean, on
-branch `v0.2`, NOT yet committed. Working tree has the 5 edits +
-untracked `atmos-env-iup-0.1-1.src.rock` (ignore/delete it).
-Continue on the other machine from §3 below.
+DONE: §1 migrate (5 sites) + §2 grep clean, COMMITTED @ c019e19,
+PUSHED on `v0.2` (origin/v0.2 == db8adac). §3+§5 all 3 exs PASS
+(installed `0.2-1`, no LUA_PATH). §4+§7 SKIPPED (branch-track
+serves the fix under `0.2-1`; dep `atmos ~> 0.7` allows 0.7-2).
+§8 WON'T DO (downstream iup-7guis deferred).
+ONLY LEFT = §6 ff `main` to `v0.2` (main is 4 behind) + push.
 
 Preconditions on the other machine:
 - sibling dirs `../atmos` (at 0.7-2) + `../f-streams` present
@@ -47,7 +49,7 @@ luarocks.org. Mirror atmos `0.7-2` / `dev-3`.
 1. [x] Migrate the 5 sites above (every -> loop_on; spawn -> do_spawn)
 2. [x] Grep clean: no `every(` / `task()` / bare `spawn(function`
 
-3. [ ] Test local (LUA_PATH) -- run from repo root, all 3:
+3. [x] Test local -- all 3 PASS (run without LUA_PATH, global install):
        ```
        export LP="../f-streams/?/init.lua;../atmos/?.lua;../atmos/?/init.lua;;"
        LUA_PATH="$LP" lua5.4 exs/hello.lua
@@ -56,37 +58,29 @@ luarocks.org. Mirror atmos `0.7-2` / `dev-3`.
        ```
        Expect: no `every`/`spawn`/`task` errors; widgets react.
 
-4. [ ] Cut rock rev `0.2-2` + `dev-2` (mirrors atmos 0.7-2 / dev-3):
-       ```
-       cp atmos-env-iup-0.2-1.rockspec atmos-env-iup-0.2-2.rockspec
-       # edit: version = "0.2-2"   (branch stays v0.2; dep atmos ~> 0.7)
-       git mv atmos-env-iup-dev-1.rockspec atmos-env-iup-dev-2.rockspec
-       # edit: version = "dev-2"
-       ```
+4. [-] SKIP -- no rev bump. `0.2-1` rockspec branch-tracks `v0.2`
+       (dep `atmos ~> 0.7` already allows 0.7-2), so pushing the
+       fix to `v0.2` serves it under `0.2-1`. `0.2-2`/`dev-2` were
+       only a cosmetic luarocks.org mirror of atmos 0.7-2 -- no
+       functional gain, dropped.
 
-5. [ ] Make + test global:
-       ```
-       luarocks make atmos-env-iup-0.2-2.rockspec
-       lua5.4 exs/hello.lua          # now WITHOUT LUA_PATH (installed)
-       lua5.4 exs/button-counter.lua
-       lua5.4 exs/iup-net.lua
-       ```
+5. [x] Test global -- covered: all 3 exs already run against the
+       installed `0.2-1` rock (no LUA_PATH) and PASS. New-rock
+       make is moot since §4 skipped.
 
-6. [ ] Commit + push + ff main (clears old 06-10 step-9 loose end):
+6. [~] `v0.2` ALREADY PUSHED (origin/v0.2 == db8adac, incl.
+       c019e19). Only the ff remains -- `main` is 4 behind `v0.2`
+       (clears old 06-10 step-9 loose end):
        ```
-       git add -A           # drop the stray .src.rock first
-       git commit -m "v0.2: migrate to atmos 0.7-2 (loop_on/do_spawn); rock 0.2-2"
-       git push origin v0.2
        git checkout main && git merge --ff-only v0.2 && git push
        git checkout v0.2
        ```
 
-7. [ ] Publish (immutable luarocks.org):
-       ```
-       luarocks upload atmos-env-iup-0.2-2.rockspec
-       ```
+7. [-] SKIP -- no `luarocks upload` (see §4: branch-track serves
+       the fix under `0.2-1`; nothing new to publish).
 
-8. [ ] Re-migrate + test downstream app iup-7guis (see below)
+8. [-] WON'T DO -- downstream iup-7guis re-migration deferred
+       (out of scope for this re-cut).
 
 ## Downstream app (no own plan -- handle here)
 
