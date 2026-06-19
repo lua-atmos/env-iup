@@ -16,7 +16,7 @@ dlg:showxy(iup.CENTER, iup.CENTER)
 
 loop(function ()
     watching({tag='close', h=dlg}, function ()
-        every({tag='action', h=but}, function ()
+        loop_on({tag='action', h=but}, function ()
             txt.value = txt.value + 1
         end)
     end)

@@ -1,13 +1,14 @@
 # Plan: Re-release env-iup v0.2 (atmos 0.7-2)
 
-## RESUME HERE (state @ 2026-06-19) -- NEXT = §6 ff `main` only
+## DONE (@ 2026-06-19) -- RELEASE COMPLETE
 
-DONE: §1 migrate (5 sites) + §2 grep clean, COMMITTED @ c019e19,
-PUSHED on `v0.2` (origin/v0.2 == db8adac). §3+§5 all 3 exs PASS
-(installed `0.2-1`, no LUA_PATH). §4+§7 SKIPPED (branch-track
-serves the fix under `0.2-1`; dep `atmos ~> 0.7` allows 0.7-2).
-§8 WON'T DO (downstream iup-7guis deferred).
-ONLY LEFT = §6 ff `main` to `v0.2` (main is 4 behind) + push.
+§1 migrate (5 sites) + §2 grep clean, COMMITTED @ c019e19,
+PUSHED on `v0.2`. §3+§5 all 3 exs PASS (installed `0.2-1`, no
+LUA_PATH). §4+§7 SKIPPED (branch-track serves the fix under
+`0.2-1`; dep `atmos ~> 0.7` allows 0.7-2). §8 WON'T DO
+(downstream iup-7guis deferred). §6: `main` merged with `v0.2`
+(real merge -- `main` had diverged 2 ahead, so not ff-only).
+Plan moved to `done/`.
 
 Preconditions on the other machine:
 - sibling dirs `../atmos` (at 0.7-2) + `../f-streams` present
@@ -68,13 +69,10 @@ luarocks.org. Mirror atmos `0.7-2` / `dev-3`.
        installed `0.2-1` rock (no LUA_PATH) and PASS. New-rock
        make is moot since §4 skipped.
 
-6. [~] `v0.2` ALREADY PUSHED (origin/v0.2 == db8adac, incl.
-       c019e19). Only the ff remains -- `main` is 4 behind `v0.2`
-       (clears old 06-10 step-9 loose end):
-       ```
-       git checkout main && git merge --ff-only v0.2 && git push
-       git checkout v0.2
-       ```
+6. [x] `v0.2` pushed; `main` merged with `v0.2` (real merge --
+       `main` had diverged 2 ahead, so `--ff-only` declined;
+       conflicts resolved, plan moved to `done/`). Clears the old
+       06-10 step-9 loose end.
 
 7. [-] SKIP -- no `luarocks upload` (see §4: branch-track serves
        the fix under `0.2-1`; nothing new to publish).

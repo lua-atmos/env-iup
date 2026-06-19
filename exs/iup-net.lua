@@ -17,13 +17,13 @@ local dlg = iup.dialog {
 dlg:showxy(iup.CENTER, iup.CENTER)
 
 loop(function ()
-    spawn(function ()
-        every(1*_s_, function ()
+    do_spawn(function ()
+        loop_on(1*_s_, function ()
             print'1s'
         end)
     end)
     watching({tag='close', h=dlg}, function ()
-        every({tag='action', h=btn}, function ()
+        loop_on({tag='action', h=btn}, function ()
             txt.value = txt.value + 1
         end)
     end)
